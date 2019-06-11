@@ -1,5 +1,5 @@
 import { query } from '@/services/api';
-
+import * as IndexApi from '@/services/index';
 import { Effect } from '@/models/connect';
 import { Reducer } from 'redux';
 import { Subscription } from 'dva';
@@ -14,7 +14,7 @@ export interface IndexModelType {
     query: Effect;
   };
   reducers: {
-    save:  Reducer<IndexModelState>;
+    save: Reducer<IndexModelState>;
   };
   subscriptions: { setup: Subscription };
 }
@@ -29,11 +29,15 @@ const IndexModel: IndexModelType = {
 
   effects: {
     *query({ payload }, { call, put, select }) {
-      const data = yield call(query, payload);
+      payload = {
+        id: 1
+      };
+      const data = yield call(IndexApi.qryExpend, payload);
       console.log(data)
+      if (!data) return;
       yield put({
         type: 'save',
-        payload: { name: data.text },
+        payload: { expend: data },
       });
 
     },
