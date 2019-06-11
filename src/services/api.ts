@@ -10,7 +10,6 @@ export async function post(url: String, params: any): Promise<any> {
   url = apiUrl + url;
   console.log(url)
   return request(url, options).then(res => {
-    console.log(res)
     return res;
   }).catch(error => {
     console.log(error);
