@@ -15,8 +15,6 @@
   "author": "Mao Xiangming",
   "license": "MIT",
   "dependencies": {
-    "@types/echarts": "^4.1.9",
-    "alita": "^0.2.8",
-    "echarts": "^4.2.1"
+    "alita": "^0.2.8"
   }
 }
