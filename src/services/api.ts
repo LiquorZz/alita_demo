@@ -1,17 +1,54 @@
 import { request } from 'alita';
-
-const apiUrl = '/mock/70943/';
+import { Toast } from 'antd-mobile';
+const yapiUrl = '/mock/70943/';
+const qqUrl = '/ws/district/v1/';
+const gdUrl = '/v3/config/district';
 // const apiUrl = 'http://yapi.demo.qunar.com/mock/70943/';
 export async function post(url: String, params: any): Promise<any> {
   let options = {
     method: 'post',
     data: params
   };
-  url = apiUrl + url;
-  console.log(url)
+  url = yapiUrl + url;
   return request(url, options).then(res => {
     return res;
   }).catch(error => {
+    console.log(error);
+  });
+}
+
+export async function qqGet(url: String, params: any): Promise<any> {
+  let options = {
+    method: 'get',
+    params: params
+  };
+  url = qqUrl + url;
+  return request(url, options).then(res => {
+    if (res.status === 0) {
+      return res;
+    } else {
+      Toast.fail(res.message || '请求失败，未知错位', Toast.SHORT);
+    }
+  }).catch(error => {
+    Toast.fail(error.message || '请求失败，未知错位', Toast.SHORT);
+    console.log(error);
+  });
+}
+
+export async function gdGet(url: String, params: any): Promise<any> {
+  let options = {
+    method: 'get',
+    params: params
+  };
+  url = gdUrl + url;
+  return request(url, options).then(res => {
+    if (res.status === '1') {
+      return res;
+    } else {
+      Toast.fail(res.message || '请求失败，未知错误', Toast.SHORT);
+    }
+  }).catch(error => {
+    Toast.fail(error.message || '请求失败，未知错误', Toast.SHORT);
     console.log(error);
   });
 }
@@ -20,7 +57,6 @@ export async function requestWithContent(url: String, content: any): Promise<any
   let params = {
     content,
   };
-  console.log(params)
   return post(url, params)
     // .then(checkStatus)
     // .then(parseJSON)

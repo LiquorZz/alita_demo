@@ -1,9 +1,17 @@
 import { connect } from 'dva';
 import React, { Component } from 'react';
 
-import { Popover } from 'antd-mobile';
-import { PieEcharts } from "echarts";
-import { IndexModelState, ConnectProps } from '@/models/connect';
+import { Popover, Button } from 'antd-mobile';
+import {
+  Chart,
+  Geom,
+  Axis,
+  Coord,
+  Label,
+  Legend,
+} from "bizcharts";
+import { IndexModelState, ConnectProps, } from '@/models/connect';
+import { ExpendObjType } from '@/models/index';
 import BasePage from '@/components/BasePage';
 import styles from './index.less';
 import quarterSelect from '@/assets/downSelect.png';
@@ -11,102 +19,103 @@ import { router } from 'umi';
 
 interface PageProps extends ConnectProps {
   index: IndexModelState;
+  expendObj: ExpendObjType;
 }
 
 interface PageState {
   popVisible?: boolean;
   quarter?: String;
   selectedIndex?: String;
+  expendObj?: ExpendObjType;
+  expendData?: Array<Object>;
+  classifyObj?: ExpendObjType;
+  classifyData?: any;
 }
 const PItem = Popover.Item;
-let pieEchartsOption = {
-  backgroundColor: '#2c343c',
-  title: {
-    text: 'Customized Pie',
-    left: 'center',
-    top: 20,
-    textStyle: {
-      color: '#ccc'
-    }
+const data = [
+  {
+    item: "支出1",
+    count: 40
   },
-  tooltip: {
-    trigger: 'item',
-    formatter: "{a} <br/>{b} : {c} ({d}%)"
+  {
+    item: "支出2",
+    count: 21
   },
-  visualMap: {
-    show: false,
-    min: 80,
-    max: 600,
-    inRange: {
-      colorLightness: [0, 1]
-    }
+  {
+    item: "支出3",
+    count: 17
   },
-  series: [
-    {
-      name: '访问来源',
-      type: 'pie',
-      radius: '55%',
-      center: ['50%', '50%'],
-      data: [
-        { value: 335, name: '直接访问' },
-        { value: 310, name: '邮件营销' },
-        { value: 274, name: '联盟广告' },
-        { value: 235, name: '视频广告' },
-        { value: 400, name: '搜索引擎' }
-      ].sort(function (a, b) { return a.value - b.value; }),
-      roseType: 'radius',
-      label: {
-        normal: {
-          textStyle: {
-            color: 'rgba(255, 255, 255, 0.3)'
-          }
-        }
-      },
-      labelLine: {
-        normal: {
-          lineStyle: {
-            color: 'rgba(255, 255, 255, 0.3)'
-          },
-          smooth: 0.2,
-          length: 10,
-          length2: 20
-        }
-      },
-      itemStyle: {
-        normal: {
-          color: '#c23531',
-          shadowBlur: 200,
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
-        }
-      },
-      animationType: 'scale',
-      animationEasing: 'elasticOut',
-      animationDelay: function (idx) {
-        return Math.random() * 200;
-      }
-    }
-  ]
-};
+];
 @connect(({ index }) => ({ index }))
 class Page extends Component<PageProps, PageState> {
   state: PageState = {
     popVisible: false,
     quarter: '第一季度',
     selectedIndex: '',
+    expendObj: {},
+    expendData: [],
+    classifyObj: {},
+    classifyData: [],
   };
+  componentDidMount() {
+
+
+  }
+  componentWillReceiveProps(props) {
+    const { index: { expendObj, classifyObj } } = props;
+    this.setState({
+      expendObj: expendObj,
+      expendData: [...expendObj.firstQuarter],
+      classifyObj: classifyObj,
+      classifyData: [...classifyObj.firstQuarter],
+    });
+  }
   onSelect = (opt) => {
     console.log(opt.key);
+    let expendData = [];
+    let classifyData = [];
+    switch (opt.key) {
+      case '1':
+        expendData = this.state.expendObj.firstQuarter;
+        classifyData = this.state.classifyObj.firstQuarter;
+        break;
+      case '2':
+        expendData = this.state.expendObj.secondQuarter;
+        classifyData = this.state.classifyObj.secondQuarter;
+        break;
+      case '3':
+        expendData = this.state.expendObj.thirdQuarter;
+        classifyData = this.state.classifyObj.thirdQuarter;
+        break;
+      case '4':
+        expendData = this.state.expendObj.fourthQuarter;
+        classifyData = this.state.classifyObj.fourthQuarter;
+        break;
+      default:
+        break;
+    }
     this.setState({
       popVisible: false,
       quarter: opt.props.children,
       selectedIndex: opt.key,
+      expendData: [...expendData],
+      classifyData: [...classifyData],
     });
   };
   handleVisibleChange = (popVisible) => {
-    this.setState({
-      popVisible,
-    });
+    // this.setState({
+    //   popVisible,
+    // });
   };
+  nextPage = () => {
+    console.log('下一页')
+    router.push({
+      pathname: './formPage',
+      query: {
+
+      }
+    })
+  }
   render() {
     const {
     } = this.props;
@@ -133,7 +142,7 @@ class Page extends Component<PageProps, PageState> {
                   (<PItem key="3">第三季度</PItem>),
                   (<PItem key="4">第四季度</PItem>),
                 ]}
-                onVisibleChange={this.handleVisibleChange}
+                // onVisibleChange={this.handleVisibleChange}
                 onSelect={this.onSelect}
               >
                 <div className={styles.quarterSelect}>
@@ -142,10 +151,49 @@ class Page extends Component<PageProps, PageState> {
                 </div>
               </Popover>
             </div>
-            <PieEcharts
-              option={pieEchartsOption}
-            ></PieEcharts>
+            <Chart
+              height={320}
+              data={this.state.expendData}
+              forceFit
+            >
+              <Coord type="theta" radius={1} />
+              <Axis name="percent" />
+              <Legend
+                position="right"
+                offsetX={-100}
+                itemFormatter={(val) => {
+                  return val;
+                }}
+              />
+              <Geom
+                type="intervalStack"
+                position="count"
+                color="item"
+                style={{
+                  lineWidth: 1,
+                  stroke: "#fff"
+                }}
+              >
+                <Label
+                  content="count"
+                  formatter={(val, item) => {
+                    return item.point.item + ": " + val;
+                  }}
+                />
+              </Geom>
+            </Chart>
+            <div className={styles.echartsFooter}>
+              {this.state.classifyData && this.state.classifyData.map((val, index) => (
+                <div key={index} className={styles.classifyItem}>
+                  <span>分类一</span>
+                  <span>{val.classifyAmount}</span>
+                </div>
+              ))}
+            </div>
           </div>
+        </div>
+        <div className={styles.footer}>
+          <Button type="primary" onClick={() => this.nextPage()}>下一页</Button>
         </div>
       </BasePage>
     );

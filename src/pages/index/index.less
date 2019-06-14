@@ -34,5 +34,30 @@
         }
       }
     }
+
+    .echartsFooter {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      margin: .2rem .6rem;
+
+      .classifyItem {
+        display: flex;
+        flex-direction: column;
+        span:first-child{
+          margin-bottom: .1rem;
+        }
+        span:last-child {
+          color: #ff0000;
+        }
+      }
+    }
   }
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: -webkit-fill-available;
+  padding: .2rem;
 }

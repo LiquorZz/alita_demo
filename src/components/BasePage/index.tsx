@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, CSSProperties } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
 import styles from './index.less';
 
@@ -8,7 +8,8 @@ export interface PageProps {
   leftContent?: any;
   rightContent: any;
   onLeftClick: () => void;
-
+  // hasFooter?: boolean;
+  // footerStyle?: CSSProperties;
 }
 export default class BasePage extends PureComponent<PageProps>{
   render() {
@@ -35,7 +36,10 @@ export default class BasePage extends PureComponent<PageProps>{
         >
           {this.props.title || ''}
         </NavBar>
-        {this.props.children}
+        <div className={styles.container}>
+          {this.props.children}
+        </div>
+        {/* {this.props.hasFooter && <div style={this.props.footerStyle}></div>} */}
       </div>
     )
   }

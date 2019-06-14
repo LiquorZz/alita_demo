@@ -1,0 +1,35 @@
+.userCenter {
+  font-size: 36px;
+}
+
+.container {
+  margin-top: .2rem;
+  background-color: #ffffff;
+
+  .orderInfo {
+    margin-bottom: .2rem;
+    :global {
+      .am-list-item.am-input-disabled .am-input-label {
+        color: #000000 !important;
+      }
+      .am-list-item .am-input-control input:disabled {
+        color: #000000 !important;
+      }
+    }
+  }
+}
+
+.distSelect {
+  :global {
+    .am-list-extra {
+      flex-basis: initial !important;
+    }
+  }
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: -webkit-fill-available;
+  padding: .2rem;
+}

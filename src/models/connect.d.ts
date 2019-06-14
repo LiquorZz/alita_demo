@@ -1,7 +1,9 @@
 import { RouterTypes, AnyAction, match, EffectsCommandMap } from 'alita';
 import { IndexModelState } from './index';
 
+import { FormPageModelState } from './formPage';
 export {
+	FormPageModelState,
   IndexModelState
 };
 
@@ -59,6 +61,8 @@ export interface Loading {
 }
 
 export interface ConnectState {
+	formPage?: FormPageModelState;
+
   index?: IndexModelState;
 }
 
