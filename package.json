@@ -17,6 +17,7 @@
   "dependencies": {
     "@antv/data-set": "^0.10.2",
     "alita": "^0.2.8",
-    "bizcharts": "^3.5.4-beta.0"
+    "bizcharts": "^3.5.4-beta.0",
+    "eslint-plugin-react-hooks": "^2.3.0"
   }
 }
