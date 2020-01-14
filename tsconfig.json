@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "build/public",
+    "outDir": "build/dist",
     "sourceMap": true,
     "jsx": "react",
     "declaration": false,

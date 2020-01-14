@@ -1,4 +1,7 @@
 export default {
+  umi: {
+    outputPath: './public'
+  },
   appType: 'h5',
   proxy: {
     '/mock/70943': {
