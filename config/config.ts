@@ -1,6 +1,7 @@
 export default {
   umi: {
-    outputPath: './public'
+    mountElementId: 'alitademo',
+    outputPath: './dist/alitademo',
   },
   appType: 'h5',
   proxy: {
