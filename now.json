@@ -1,17 +1,17 @@
-{
-  "name": "umi-now",
-  "version": 2,
-  "env": {
-    "NOW_ZEIT_ENV": "true"
-  },
-  "builds": [
-    {
-      "use": "@now/node",
-      "config": {
-        "includeFiles": [
-          "dist/**/*"
-        ]
-      }
-    }
-  ]
-}
+// {
+//   "name": "umi-now",
+//   "version": 2,
+//   "env": {
+//     "NOW_ZEIT_ENV": "true"
+//   },
+//   "builds": [
+//     {
+//       "use": "@now/node",
+//       "config": {
+//         "includeFiles": [
+//           "dist/**/*"
+//         ]
+//       }
+//     }
+//   ]
+// }
