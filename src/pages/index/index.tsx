@@ -24,8 +24,8 @@ interface PageProps extends ConnectProps {
 
 interface PageState {
   popVisible?: boolean;
-  quarter?: String;
-  selectedIndex?: String;
+  quarter?: string;
+  selectedIndex?: string;
   expendObj?: ExpendObjType;
   expendData?: Array<Object>;
   classifyObj?: ExpendObjType;
@@ -117,8 +117,6 @@ class Page extends Component<PageProps, PageState> {
     })
   }
   render() {
-    const {
-    } = this.props;
     return (
       <BasePage
         title='支出页面'

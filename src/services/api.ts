@@ -4,7 +4,7 @@ const yapiUrl = '/mock/70943/';
 const qqUrl = '/ws/district/v1/';
 const gdUrl = '/v3/config/district';
 // const apiUrl = 'http://yapi.demo.qunar.com/mock/70943/';
-export async function post(url: String, params: any): Promise<any> {
+export async function post(url: string, params: any): Promise<any> {
   let options = {
     method: 'post',
     data: params
@@ -17,7 +17,7 @@ export async function post(url: String, params: any): Promise<any> {
   });
 }
 
-export async function qqGet(url: String, params: any): Promise<any> {
+export async function qqGet(url: string, params: any): Promise<any> {
   let options = {
     method: 'get',
     params: params
@@ -35,7 +35,7 @@ export async function qqGet(url: String, params: any): Promise<any> {
   });
 }
 
-export async function gdGet(url: String, params: any): Promise<any> {
+export async function gdGet(url: string, params: any): Promise<any> {
   let options = {
     method: 'get',
     params: params
@@ -53,7 +53,7 @@ export async function gdGet(url: String, params: any): Promise<any> {
   });
 }
 
-export async function requestWithContent(url: String, content: any): Promise<any> {
+export async function requestWithContent(url: string, content: any): Promise<any> {
   let params = {
     content,
   };

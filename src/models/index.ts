@@ -37,8 +37,8 @@ const IndexModel: IndexModelType = {
   },
 
   effects: {
-    *query({ payload }, { call, put, select }) {
-      payload = {
+    *query(_, { call, put, select }) {
+      const payload = {
         id: 1
       };
       const expendRes = yield call(IndexApi.qryExpend, payload);

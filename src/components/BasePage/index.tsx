@@ -3,7 +3,7 @@ import { NavBar, Icon } from 'antd-mobile';
 import styles from './index.less';
 
 export interface PageProps {
-  title?: String;
+  title?: string;
   canBack?: boolean;
   leftContent?: any;
   rightContent: any;
